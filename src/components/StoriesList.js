@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql, StaticQuery } from 'gatsby';
-import PreviewCompatibleImage from './PreviewCompatibleImage';
+import StoryPreview from './StoryPreview';
 
 class StoriesList extends React.Component {
   render() {
@@ -9,44 +9,52 @@ class StoriesList extends React.Component {
     const { edges: posts } = data.allMarkdownRemark;
 
     return (
-      <ul className="storiesList">
-        {posts &&
-          posts.map(({ node: post, i }) => (
-            <li className="storiesList-item">
-              <article
-                key={i}
-                className={`storiesItem ${
-                  post.frontmatter.featuredpost ? 'is-featured' : ''
-                }`}
-              >
-                <header>
-                  {post.frontmatter.featuredimage ? (
-                    <Link to={post.fields.slug}>
-                      <div className="featuredImage">
-                        <PreviewCompatibleImage
-                          imageInfo={{
-                            image: post.frontmatter.featuredimage,
-                            alt: `featured image thumbnail for post ${post.frontmatter.title}`,
-                          }}
-                        />
-                      </div>
-                    </Link>
-                  ) : null}
-                  <div className="post-content">
-                    <Link to={post.fields.slug}>
-                      <h2>{post.frontmatter.title}</h2>
-                    </Link>
-                    <span>{post.frontmatter.date}</span>
-                  </div>
-                </header>
-                <p>{post.excerpt}</p>
-                <Link className="button secondary" to={post.fields.slug}>
-                  Keep Reading
-                </Link>
-              </article>
-            </li>
-          ))}
-      </ul>
+      <div className={"storiesList"}>
+        {posts.map(({ node: post, i}) => (
+          <div key={i} className={"storiesItem"}>
+            <StoryPreview post={post} />
+          </div>
+        ))}
+      </div>
+
+
+
+      // <div style={{display: "flex"}}>
+      //   <div style={{
+      //     display: "flex",
+      //     flexDirection: "row",
+      //     flexWrap: "wrap",
+      //     width: "100%",
+      //     }}>
+      //     <div style={{
+      //       display: "flex",
+      //       flexDirection: "column",
+      //       flexBasis: "100%",
+      //       flex: "1",
+      //     }}>
+      //       <StoryPreview post={posts[0].node} />
+      //     </div>
+      //     <div style={{
+      //       display: "flex",
+      //       flexDirection: "column",
+      //       flexBasis: "100%",
+      //       flex: "1",
+      //     }}>
+      //       <StoryPreview post={posts[1].node} />
+      //     </div>
+      //   </div>
+      // </div>
+
+
+
+      // <ul className="storiesList">
+      //   {posts &&
+      //     posts.map(({ node: post, i }) => (
+      //       <li key={i} className="storiesList-item">
+      //         <StoryPreview post={post} />
+      //       </li>
+      //     ))}
+      // </ul>
     );
   }
 }
