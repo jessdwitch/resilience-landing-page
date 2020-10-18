@@ -1,0 +1,24 @@
+.carousel {
+    &-slide {
+        display: inline-block;
+    }
+    &-dot {
+        &-group {
+            display: flex;
+            justify-content: center;
+            > button {
+                min-width: 8px;
+            }
+        }
+        &-label {
+            min-height: 8px;
+            min-width: 8px;
+            border-radius: 50%;
+            background-color: $color-grey4;
+            opacity: 50%;
+            &.selected {
+                opacity: 100%;
+            }
+        }
+    }
+}
